@@ -18,16 +18,16 @@
             formControlName="firstname"
             [ngClass]="{
               'is-invalid':
-                (customerForm.get('firstname').touched ||
-                  customerForm.get('firstname').dirty) &&
-                !customerForm.get('firstname').valid
+                (customerForm.get('firstname') ||
+                  customerForm.get('firstname')) &&
+                !customerForm.get('firstname')
             }"
           />
           <span class="invalid-feedback">
-            <span *ngIf="customerForm.get('firstname').errors?.required">
+            <span *ngIf="customerForm.get('firstname')">
               Please enter your first name.
             </span>
-            <span *ngIf="customerForm.get('firstname').errors?.minlength">
+            <span *ngIf="customerForm.get('firstname')">
               The first name must be longer than 3 characters.
             </span>
           </span>
@@ -49,16 +49,16 @@
             formControlName="lastname"
             [ngClass]="{
               'is-invalid':
-                (customerForm.get('lastname').touched ||
-                  customerForm.get('lastname').dirty) &&
-                !customerForm.get('lastname').valid
+                (customerForm.get('lastname') ||
+                  customerForm.get('lastname')) &&
+                !customerForm.get('lastname')
             }"
           />
           <span class="invalid-feedback">
-            <span *ngIf="customerForm.get('lastname').errors?.required">
+            <span *ngIf="customerForm.get('lastname')">
               Please enter your last name.
             </span>
-            <span *ngIf="customerForm.get('lastname').errors?.maxlength">
+            <span *ngIf="customerForm.get('lastname')">
               The last name must be less than 50 characters.
             </span>
           </span>
@@ -78,16 +78,15 @@
             formControlName="email"
             [ngClass]="{
               'is-invalid':
-                (customerForm.get('email').touched ||
-                  customerForm.get('email').dirty) &&
-                !customerForm.get('email').valid
+                (customerForm.get('email') || customerForm.get('email')) &&
+                !customerForm.get('email')
             }"
           />
           <span class="invalid-feedback">
-            <span *ngIf="customerForm.get('email').errors?.required">
+            <span *ngIf="customerForm.get('email')">
               Please enter your email address.
             </span>
-            <span *ngIf="customerForm.get('email').errors?.email">
+            <span *ngIf="customerForm.get('email')">
               Please enter a valid email address.
             </span>
           </span>
@@ -237,6 +236,13 @@
             [disabled]="!customerForm.valid"
           >
             Save
+          </button>
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="populateTestData()"
+          >
+            Test data
           </button>
         </div>
       </div>
