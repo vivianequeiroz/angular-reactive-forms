@@ -73,9 +73,10 @@
               formControlName="email"
               [ngClass]="{
                 'is-invalid':
-                  (customerForm.get('emailGroup.email')?.touched ||
+                  customerForm.get('emailGroup')?.errors ||
+                  ((customerForm.get('emailGroup.email')?.touched ||
                     customerForm.get('emailGroup.email')?.dirty) &&
-                  !customerForm.get('emailGroup.email')?.valid
+                    !customerForm.get('emailGroup.email')?.valid)
               }"
             />
             <span class="invalid-feedback">
@@ -102,9 +103,10 @@
               formControlName="confirmEmail"
               [ngClass]="{
                 'is-invalid':
-                  (customerForm.get('emailGroup.confirmEmail')?.touched ||
+                  customerForm.get('emailGroup')?.errors ||
+                  ((customerForm.get('emailGroup.confirmEmail')?.touched ||
                     customerForm.get('emailGroup.confirmEmail')?.dirty) &&
-                  !customerForm.get('emailGroup.confirmEmail')?.valid
+                    !customerForm.get('emailGroup.confirmEmail')?.valid)
               }"
             />
             <span class="invalid-feedback">
@@ -114,6 +116,10 @@
                 "
                 >Please confirm your email address
               </span>
+              <span *ngIf="customerForm.get('emailGroup')?.errors?.match"
+                >The confirmation email does not match de first email address
+                informed.</span
+              >
             </span>
           </div>
         </div>

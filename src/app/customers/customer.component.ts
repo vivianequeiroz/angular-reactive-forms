@@ -9,6 +9,26 @@ import {
 
 import { Customer } from './customer';
 
+function emailMatcherValidator(
+  control: AbstractControl
+): { [key: string]: boolean } | null {
+  const emailControl = control.get('email');
+  const confirmControl = control.get('confirmEmail');
+  const emailsAreEqual = emailControl!.value === confirmControl!.value;
+
+  const emailsNotTouched = emailControl!.pristine || confirmControl!.pristine;
+
+  if (emailsNotTouched) {
+    return null;
+  }
+
+  if (emailsAreEqual) {
+    return null;
+  }
+
+  return { match: true };
+}
+
 // if it was reused in another classes, it is indicated to add the function into a single file
 function ratingRangeValidator(minRange: number, maxRange: number): ValidatorFn {
   return (range: AbstractControl): { [key: string]: boolean } | null => {
@@ -41,10 +61,13 @@ export class CustomerComponent implements OnInit {
       firstname: ['', [Validators.required, Validators.minLength(3)]],
       lastname: ['', [Validators.required, Validators.maxLength(50)]],
       //nested form group
-      emailGroup: this.formBuilder.group({
-        email: ['', [Validators.required, Validators.email]],
-        confirmEmail: ['', Validators.required],
-      }),
+      emailGroup: this.formBuilder.group(
+        {
+          email: ['', [Validators.required, Validators.email]],
+          confirmEmail: ['', Validators.required],
+        },
+        { validator: emailMatcherValidator }
+      ),
       phone: '',
       notification: 'email',
       rating: [null, ratingRangeValidator(1, 5)],
