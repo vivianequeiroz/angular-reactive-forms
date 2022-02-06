@@ -36,10 +36,15 @@ export class CustomerComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
+    //root form group
     this.customerForm = this.formBuilder.group({
       firstname: ['', [Validators.required, Validators.minLength(3)]],
       lastname: ['', [Validators.required, Validators.maxLength(50)]],
-      email: ['', [Validators.required, Validators.email]],
+      //nested form group
+      emailGroup: this.formBuilder.group({
+        email: ['', [Validators.required, Validators.email]],
+        confirmEmail: ['', Validators.required],
+      }),
       phone: '',
       notification: 'email',
       rating: [null, ratingRangeValidator(1, 5)],
