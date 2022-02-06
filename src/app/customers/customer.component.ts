@@ -77,7 +77,7 @@ export class CustomerComponent implements OnInit {
     this.customerForm
       .get('notification')!
       .valueChanges.subscribe((value: string) => {
-        console.log(value);
+        this.setNotification(value);
       });
   }
 
