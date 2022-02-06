@@ -12,14 +12,11 @@ import { Customer } from './customer';
 // if it was reused in another classes, it is indicated to add the function into a single file
 function ratingRangeValidator(minRange: number, maxRange: number): ValidatorFn {
   return (range: AbstractControl): { [key: string]: boolean } | null => {
-    // const notNull = range.value !== null;
-    // const isInvalidRange =
-    // isNaN(range.value) || range.value < minRange || range.value > maxRange;
+    const notNull = range.value !== null;
+    const isInvalidRange =
+      isNaN(range.value) || range.value < minRange || range.value > maxRange;
 
-    if (
-      range.value !== null &&
-      (isNaN(range.value) || range.value < minRange || range.value > maxRange)
-    ) {
+    if (notNull && isInvalidRange) {
       return { range: true }; // validation name
     }
 
