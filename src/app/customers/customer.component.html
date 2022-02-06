@@ -95,7 +95,8 @@
             class="form-control"
             id="ratingId"
             type="number"
-            formControlName="ratingId"
+            placeholder="1 - 5"
+            formControlName="rating"
             [ngClass]="{
               'is-invalid':
                 (customerForm.get('rating')?.touched ||

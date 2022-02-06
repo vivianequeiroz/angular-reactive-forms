@@ -4,23 +4,27 @@ import {
   FormBuilder,
   Validators,
   AbstractControl,
+  ValidatorFn,
 } from '@angular/forms';
 
 import { Customer } from './customer';
 
 // if it was reused in another classes, it is indicated to add the function into a single file
-function ratingRangeValidator(
-  range: AbstractControl
-): { [key: string]: boolean } | null {
-  const notNull = range.value !== null;
-  const isInvalidRange =
-    isNaN(range.value) || range.value < 1 || range.value > 5;
+function ratingRangeValidator(minRange: number, maxRange: number): ValidatorFn {
+  return (range: AbstractControl): { [key: string]: boolean } | null => {
+    // const notNull = range.value !== null;
+    // const isInvalidRange =
+    // isNaN(range.value) || range.value < minRange || range.value > maxRange;
 
-  if (notNull && isInvalidRange) {
-    return { range: true }; // validation name
-  }
+    if (
+      range.value !== null &&
+      (isNaN(range.value) || range.value < minRange || range.value > maxRange)
+    ) {
+      return { range: true }; // validation name
+    }
 
-  return null; // if valid
+    return null; // if valid
+  };
 }
 
 @Component({
@@ -41,7 +45,7 @@ export class CustomerComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: '',
       notification: 'email',
-      rating: [null, ratingRangeValidator],
+      rating: [null, ratingRangeValidator(1, 5)],
       sendCatalog: true,
     });
   }
