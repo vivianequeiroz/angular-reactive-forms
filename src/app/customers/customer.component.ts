@@ -1,7 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 
 import { Customer } from './customer';
+
+// if it was reused in another classes, it is indicated to add the function into a single file
+function ratingRangeValidator(
+  range: AbstractControl
+): { [key: string]: boolean } | null {
+  const notNull = range.value !== null;
+  const isInvalidRange =
+    isNaN(range.value) || range.value < 1 || range.value > 5;
+
+  if (notNull && isInvalidRange) {
+    return { range: true }; // validation name
+  }
+
+  return null; // if valid
+}
 
 @Component({
   selector: 'app-customer',
@@ -21,6 +41,7 @@ export class CustomerComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       phone: '',
       notification: 'email',
+      rating: [null, ratingRangeValidator],
       sendCatalog: true,
     });
   }
