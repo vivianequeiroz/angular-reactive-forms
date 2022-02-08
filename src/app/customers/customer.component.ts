@@ -54,7 +54,7 @@ export class CustomerComponent implements OnInit {
   customer = new Customer();
   emailMessage: string = '';
 
-  private validationEmailMessages = {
+  private validationEmailMessages: any = {
     required: 'Please enter your email address.',
     email: 'Please enter a valid email address.',
   };
@@ -105,10 +105,11 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  setMessage(c: AbstractControl): void {
+  setMessage(control: AbstractControl): void {
     this.emailMessage = '';
-    if ((c.touched || c.dirty) && c.errors) {
-      this.emailMessage = Object.keys(c.errors)
+    const invalidControl = (control.touched || control.dirty) && control.errors;
+    if (invalidControl) {
+      this.emailMessage = Object.keys(control.errors)
         .map((key) => this.validationEmailMessages[key])
         .join(' ');
     }
