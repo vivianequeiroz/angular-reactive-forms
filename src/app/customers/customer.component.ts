@@ -1,3 +1,4 @@
+import { debounceTime } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import {
   FormGroup,
@@ -16,7 +17,7 @@ function emailMatcherValidator(
   const confirmControl = control.get('confirmEmail');
   const emailsAreEqual = emailControl!.value === confirmControl!.value;
 
-  const emailsNotTouched = emailControl!.pristine || confirmControl!.pristine;
+  const emailsNotTouched = emailControl!.pristine || confirmControl!.dirty;
 
   if (emailsNotTouched) {
     return null;
@@ -87,7 +88,7 @@ export class CustomerComponent implements OnInit {
       });
 
     const emailControl = this.customerForm.get('emailGroup.email')!;
-    emailControl!.valueChanges.subscribe((value: string) => {
+    emailControl!.valueChanges.pipe(debounceTime(1000)).subscribe(() => {
       this.setMessage(emailControl);
     });
   }
@@ -107,10 +108,13 @@ export class CustomerComponent implements OnInit {
 
   setMessage(control: AbstractControl): void {
     this.emailMessage = '';
-    const invalidControl = (control.touched || control.dirty) && control.errors;
+    const invalidControl =
+      (control.touched || control.dirty) &&
+      control.errors &&
+      control.errors != null;
     if (invalidControl) {
       this.emailMessage = Object.keys(control.errors)
-        .map((key) => this.validationEmailMessages[key])
+        .map((key: any) => this.validationEmailMessages[key])
         .join(' ');
     }
   }
