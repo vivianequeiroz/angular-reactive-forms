@@ -88,7 +88,7 @@ export class CustomerComponent implements OnInit {
       });
 
     const emailControl = this.customerForm.get('emailGroup.email')!;
-    emailControl!.valueChanges.pipe(debounceTime(1000)).subscribe(() => {
+    emailControl.valueChanges.pipe(debounceTime(1000)).subscribe((value) => {
       this.setMessage(emailControl);
     });
   }
@@ -110,9 +110,10 @@ export class CustomerComponent implements OnInit {
     this.emailMessage = '';
     const invalidControl =
       (control?.touched || control!.dirty) && control.errors;
+
     if (invalidControl) {
       this.emailMessage = Object.keys(control.errors as {})
-        .map((key: any) => this.validationEmailMessages[key])
+        .map((key) => this.validationEmailMessages[key])
         .join(' ');
     }
   }
