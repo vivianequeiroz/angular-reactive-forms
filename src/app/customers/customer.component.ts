@@ -109,11 +109,9 @@ export class CustomerComponent implements OnInit {
   setMessage(control: AbstractControl): void {
     this.emailMessage = '';
     const invalidControl =
-      (control.touched || control.dirty) &&
-      control.errors &&
-      control.errors != null;
+      (control?.touched || control!.dirty) && control.errors;
     if (invalidControl) {
-      this.emailMessage = Object.keys(control.errors)
+      this.emailMessage = Object.keys(control.errors as {})
         .map((key: any) => this.validationEmailMessages[key])
         .join(' ');
     }
