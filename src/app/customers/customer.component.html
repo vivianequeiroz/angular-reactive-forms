@@ -200,7 +200,7 @@
         </div>
       </div>
 
-      <!-- <div *ngIf="customer.sendCatalog">
+      <div *ngIf="customerForm.get('sendCatalog')!.value">
         <div class="form-group row mb-2">
           <label class="col-md-2 col-form-label pt-0">Address Type</label>
           <div class="col-md-8">
@@ -223,7 +223,7 @@
                   id="addressType1Id"
                   type="radio"
                   value="work"
-                  name="addressType"
+                  formControlName="addressType"
                 />
                 Work
               </label>
@@ -235,7 +235,7 @@
                   id="addressType1Id"
                   type="radio"
                   value="other"
-                  name="addressType"
+                  formControlName="addressType"
                 />
                 Other
               </label>
@@ -253,7 +253,7 @@
               id="street1Id"
               type="text"
               placeholder="Street address"
-              name="street1"
+              formControlName="street1"
             />
           </div>
         </div>
@@ -268,7 +268,7 @@
               id="street2Id"
               type="text"
               placeholder="Street address (second line)"
-              name="street2"
+              formControlName="street2"
             />
           </div>
         </div>
@@ -283,7 +283,7 @@
               id="cityId"
               type="text"
               placeholder="City"
-              name="city"
+              formControlName="city"
             />
           </div>
           <div class="col-md-3">
@@ -307,11 +307,11 @@
               id="zipId"
               type="number"
               placeholder="Zip Code"
-              name="zip"
+              formControlName="zip"
             />
           </div>
         </div>
-      </div> -->
+      </div>
 
       <div class="form-group row mb-2">
         <div class="offset-md-2 col-md-4">
