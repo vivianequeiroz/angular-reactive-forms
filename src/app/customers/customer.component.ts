@@ -84,7 +84,7 @@ export class CustomerComponent implements OnInit {
       notification: 'email',
       rating: [null, ratingRangeValidator(1, 5)],
       sendCatalog: true,
-      addresses: this.formBuilder.array([this.buildAddress()]),
+      addresses: this.formBuilder.array([this.buildAddressForm()]),
     });
 
     this.customerForm
@@ -99,7 +99,7 @@ export class CustomerComponent implements OnInit {
     });
   }
 
-  buildAddress(): FormGroup {
+  buildAddressForm(): FormGroup {
     return this.formBuilder.group({
       addressType: 'home',
       street1: '',
@@ -108,6 +108,10 @@ export class CustomerComponent implements OnInit {
       state: '',
       zip: '',
     });
+  }
+
+  addNewAddressForm(): void {
+    this.addresses.push(this.buildAddressForm());
   }
 
   save(): void {
