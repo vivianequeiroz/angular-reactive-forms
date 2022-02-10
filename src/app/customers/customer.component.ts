@@ -6,6 +6,7 @@ import {
   Validators,
   AbstractControl,
   ValidatorFn,
+  FormArray,
 } from '@angular/forms';
 
 import { Customer } from './customer';
@@ -55,6 +56,10 @@ export class CustomerComponent implements OnInit {
   customer = new Customer();
   emailMessage: string = '';
 
+  get addresses(): FormArray {
+    return <FormArray>this.customerForm.get('addresses');
+  }
+
   private validationEmailMessages: any = {
     required: 'Please enter your email address.',
     email: 'Please enter a valid email address.',
@@ -79,7 +84,7 @@ export class CustomerComponent implements OnInit {
       notification: 'email',
       rating: [null, ratingRangeValidator(1, 5)],
       sendCatalog: true,
-      addresses: this.buildAddress(),
+      addresses: this.formBuilder.array([this.buildAddress()]),
     });
 
     this.customerForm
