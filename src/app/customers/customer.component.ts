@@ -79,7 +79,7 @@ export class CustomerComponent implements OnInit {
       notification: 'email',
       rating: [null, ratingRangeValidator(1, 5)],
       sendCatalog: true,
-      addresType: 'home',
+      addressType: 'home',
       street1: '',
       street2: '',
       city: '',

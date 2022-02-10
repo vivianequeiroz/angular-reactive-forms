@@ -97,11 +97,11 @@
             <span class="invalid-feedback">
               <span
                 *ngIf="
-                  customerForm.get('emailGroup.confirmEmail')!.errors!.required
+                  customerForm.get('emailGroup.confirmEmail')!.errors?.required
                 "
                 >Please confirm your email address
               </span>
-              <span *ngIf="customerForm.get('emailGroup')!.errors!.match">{{
+              <span *ngIf="customerForm.get('emailGroup')!.errors?.match">{{
                 emailMessage
               }}</span>
             </span>
@@ -126,7 +126,7 @@
             }"
           />
           <span class="invalid-feedback">
-            <span *ngIf="customerForm.get('phone')!.errors!.required">
+            <span *ngIf="customerForm.get('phone')!.errors?.required">
               Please enter your phone number.
             </span>
           </span>
@@ -177,7 +177,7 @@
             }"
           />
           <span class="invalid-feedback">
-            <span *ngIf="customerForm.get('rating')!.errors!.range">
+            <span *ngIf="customerForm.get('rating')!.errors?.range">
               Please, rate your experience from 1 to 5.
             </span>
           </span>
@@ -211,7 +211,7 @@
                   id="addressType1Id"
                   type="radio"
                   value="home"
-                  name="addressType"
+                  formControlName="addressType"
                 />
                 Home
               </label>
